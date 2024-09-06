@@ -57,6 +57,12 @@ namespace SwarmTesting
         /// </summary>
         public float Count { get { return Swarm.Count; } }
 
+        public Vector3 AvgPosition { get => avgPosition; }
+        public Vector3 AvgRotation { get => avgRotation; }
+
+        private Vector3 avgPosition;
+        private Vector3 avgRotation;
+
         public static SwarmManager Instance;
 
         /// <summary>
@@ -71,10 +77,16 @@ namespace SwarmTesting
             SpawnSwarm();
         }
 
+        private void Update()
+        {
+            avgPosition = GetAvgPosition();
+            avgRotation = GetAvgRotation();
+        }
+
         /// <summary>
         /// Get the average of the position of the swarm.
         /// </summary>
-        public Vector3 GetAvgPosition()
+        Vector3 GetAvgPosition()
         {
             // get the sum of all positions.
             Vector3 sumVector = Vector3.zero;
@@ -98,7 +110,7 @@ namespace SwarmTesting
         /// Get average rotation vector of the swarm.
         /// </summary>
         /// <returns>The swarm's average rotation in Euler degrees.</returns>
-        public Vector3 GetAvgRotation()
+        Vector3 GetAvgRotation()
         {
             // get the sum of all rotations
             Vector3 sumVector = Vector3.zero;

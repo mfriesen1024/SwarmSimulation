@@ -35,11 +35,11 @@ namespace SwarmTesting
             float delta = Time.deltaTime;
 
             // Set to avg position. If nothing else, we should go towards the average.
-            Vector3 avgRot = swarmManager.GetAvgRotation();
+            Vector3 avgRot = swarmManager.AvgRotation;
             Vector3 targetRot = avgRot;
 
             // Based on the distance, determine how much we should rotate towards the average.
-            Vector3 avgPos = swarmManager.GetAvgPosition();
+            Vector3 avgPos = swarmManager.AvgPosition;
             targetRot = TargetAvg(targetRot, avgPos);
             targetRot = AvoidAvoidances(targetRot);
 
