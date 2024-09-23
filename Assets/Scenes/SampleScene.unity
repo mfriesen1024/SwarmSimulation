@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -153,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7da178f50e78a4aac14078eddc9cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4309456601404396801, guid: 0d3c96fa08060c945844427c06d2714b, type: 3}
+  prefab: {fileID: 8328492604776822627, guid: a2acbf044561c484f850dcb7ce031090, type: 3}
   spawnCount: 50
   AvoidanceDist: 5
   WeightFactor: 2
@@ -163,6 +162,7 @@ MonoBehaviour:
   RotationSpeed: 15
   RandomFactor: 0.05
   spawnBounds: 50
+  simBounds: 100
   Swarm: []
 --- !u!4 &85854004
 Transform:
@@ -310,12 +310,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
