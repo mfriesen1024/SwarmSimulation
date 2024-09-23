@@ -34,7 +34,7 @@ namespace SwarmTesting
 
             float delta = Time.deltaTime;
 
-            // Set to avg position. If nothing else, we should go towards the average.
+            // Set to avg rotation in eulers. If nothing else, we should go towards the average.
             Vector3 avgRot = swarmManager.AvgRotation;
             Vector3 targetRot = avgRot;
 
