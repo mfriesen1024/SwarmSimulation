@@ -49,8 +49,8 @@ namespace SwarmTesting
         /// </summary>
         [SerializeField] public float RandomFactor = 0.05f;
 
-        // Defines the size of the spawn area.
-        [SerializeField] float spawnBounds = 50;
+        // Defines the size of the spawn area, and simulation area.
+        [SerializeField] float spawnBounds = 50, simBounds = 100;
 
         /// <summary>
         /// The current size of the swarm.
@@ -80,7 +80,13 @@ namespace SwarmTesting
         private void Update()
         {
             avgPosition = GetAvgPosition();
-            avgRotation = GetAvgRotation();
+            avgRotation = GetAvgRotation();                        
+        }
+
+        private void FixedUpdate()
+        {
+            // Rangecheck every fixed frame to save power for large sims.
+            RangeCheckObjects();
         }
 
         /// <summary>
@@ -152,6 +158,28 @@ namespace SwarmTesting
                 obj.name = i.ToString();
                 obj.transform.position = spawnPosition;
                 Swarm.Add(obj);
+            }
+        }
+
+        /// <summary>
+        /// Prevent objects from leaving the simulation area.
+        /// </summary>
+        void RangeCheckObjects()
+        {
+            foreach (SwarmObject obj in Swarm)
+            {
+                // save position so lines arent absurdly long.
+                Vector3 objPos = obj.transform.position;
+                // if greater than bounds, snap to bounds.
+                objPos.x = objPos.x > simBounds ? simBounds : objPos.x;
+                objPos.y = objPos.y > simBounds ? simBounds : objPos.y;
+                objPos.z = objPos.z > simBounds ? simBounds : objPos.z;
+                // if less than bounds on other side, snap to bounds.
+                objPos.x = objPos.x < -simBounds ? -simBounds : objPos.x;
+                objPos.y = objPos.y < -simBounds ? -simBounds : objPos.y;
+                objPos.z = objPos.z < -simBounds ? -simBounds : objPos.z;
+                // re-update position.
+                obj.transform.position = objPos;
             }
         }
     }
