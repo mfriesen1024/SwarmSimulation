@@ -45,7 +45,8 @@ namespace SwarmTesting
 
             // Based on the distance, determine how much we should rotate towards the average.
             Vector3 avgPos = swarmManager.AvgPosition;
-            targetRot = TargetAvg(targetRot, avgPos);
+            targetRot = TargetPos(targetRot, Vector3.zero);
+            targetRot = TargetPos(targetRot, avgPos);
             targetRot = AvoidAvoidances(targetRot);
 
             // Add a random value based on random factor.
@@ -67,7 +68,7 @@ namespace SwarmTesting
             transform.position += transform.forward * finalSpeed;
         }
 
-        private Vector3 TargetAvg(Vector3 currentTarget, Vector3 avgPos)
+        private Vector3 TargetPos(Vector3 currentTarget, Vector3 avgPos)
         {
             Quaternion currentRot = new Quaternion();
             currentRot.eulerAngles = currentTarget;
