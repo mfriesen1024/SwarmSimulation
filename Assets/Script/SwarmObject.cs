@@ -29,14 +29,6 @@ namespace SwarmTesting
 
         public void Update()
         {
-            // Documenting what i want to happen...
-            // Rotation should first, adjust to average.
-            // If far from zero, rotate towards zero.
-            // If far from center, rotate towards center.
-            // Then, rotate away from anything absurdly close.
-            // Give it some randomness.
-            // Lastly, move the object
-
             float delta = Time.deltaTime;
 
             // Set to avg rotation in eulers. If nothing else, we should go towards the average.
@@ -85,12 +77,12 @@ namespace SwarmTesting
             Quaternion newRot = Quaternion.Slerp(currentRot, rotToAvgPos, recallLerpFactor);
             Vector3 d_vToCenter = (transform.position - avgPos).normalized;
 
-            Debug.Log($"{name} TargetAvg: Currentpos is {transform.position}, center is {avgPos}, current vector is {transform.forward}" +
-                $", vector to center is {d_vToCenter}");
-            Debug.DrawRay(transform.position, transform.forward, Color.blue);
-            Debug.DrawLine(transform.position, avgPos, Color.green);
-            Debug.Log($"{name} TargetAvg: Target is {rotToAvgPos.eulerAngles}, lerped is {newRot.eulerAngles} with factor of {recallLerpFactor} " +
-                $"current rot is {currentRot.eulerAngles}");
+            //Debug.Log($"{name} TargetAvg: Currentpos is {transform.position}, center is {avgPos}, current vector is {transform.forward}" +
+            //    $", vector to center is {d_vToCenter}");
+            //Debug.DrawRay(transform.position, transform.forward, Color.blue);
+            //Debug.DrawLine(transform.position, avgPos, Color.green);
+            //Debug.Log($"{name} TargetAvg: Target is {rotToAvgPos.eulerAngles}, lerped is {newRot.eulerAngles} with factor of {recallLerpFactor} " +
+            //    $"current rot is {currentRot.eulerAngles}");
 
             return newRot.eulerAngles;
         }
@@ -123,8 +115,8 @@ namespace SwarmTesting
 
             // Slerp and return.
             Quaternion newRot = Quaternion.Slerp(currentRot, rotAvoidAvoidance, avoidanceLerpFactor);
-            Debug.Log($"AvoidanceCheck: Current is {currentTarget}, target is {rotAvoidAvoidance.eulerAngles}," +
-                $"lerped is {newRot.eulerAngles}, factor was {avoidanceLerpFactor}");
+            //Debug.Log($"AvoidanceCheck: Current is {currentTarget}, target is {rotAvoidAvoidance.eulerAngles}," +
+            //    $"lerped is {newRot.eulerAngles}, factor was {avoidanceLerpFactor}");
             return newRot.eulerAngles;
         }
 
