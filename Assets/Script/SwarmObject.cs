@@ -81,6 +81,7 @@ namespace SwarmTesting
 
             // Get our new rotation
             Quaternion newRot = Quaternion.Slerp(currentRot, rotToAvgPos, recallLerpFactor);
+            Debug.Log($"TargetAvg: Currentpos is {transform.position}, center is {avgPos}, current vector is {transform.forward}");
             Debug.Log($"TargetAvg: Target is {rotToAvgPos.eulerAngles}, lerped is {newRot.eulerAngles}");
 
             return newRot.eulerAngles;
