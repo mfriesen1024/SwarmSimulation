@@ -89,6 +89,7 @@ namespace SwarmTesting
             Debug.Log($"{name} TargetAvg: Target is {rotToAvgPos.eulerAngles}, lerped is {newRot.eulerAngles} with factor of {recallLerpFactor}");
 
             return newRot.eulerAngles;
+            return Quaternion.Inverse(newRot).eulerAngles;
 
             Vector3 recallTarget = Quaternion.FromToRotation(transform.position, avgPos).eulerAngles;
             Debug.Log($"Recall target is {recallTarget}");
