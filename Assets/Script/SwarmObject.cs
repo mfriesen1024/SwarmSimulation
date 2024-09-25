@@ -31,6 +31,7 @@ namespace SwarmTesting
         {
             // Documenting what i want to happen...
             // Rotation should first, adjust to average.
+            // If far from zero, rotate towards zero.
             // If far from center, rotate towards center.
             // Then, rotate away from anything absurdly close.
             // Give it some randomness.
@@ -70,7 +71,7 @@ namespace SwarmTesting
         {
             Quaternion currentRot = new Quaternion();
             currentRot.eulerAngles = currentTarget;
-            Vector3 vectorToAvgPos = transform.position-avgPos;
+            Vector3 vectorToAvgPos = avgPos-transform.position;
             Quaternion rotToAvgPos = Quaternion.LookRotation(vectorToAvgPos.normalized);
 
             // Calculate distance crap.
@@ -123,7 +124,7 @@ namespace SwarmTesting
             // Do quaternion math.
             Quaternion currentRot = new Quaternion();
             currentRot.eulerAngles = currentTarget;
-            Vector3 vectorToAvoidance = transform.position-closestObj.transform.position;
+            Vector3 vectorToAvoidance = closestObj.transform.position-transform.position;
             Quaternion rotToAvoidance = Quaternion.LookRotation(vectorToAvoidance.normalized);
             Quaternion rotAvoidAvoidance = Quaternion.Inverse(rotToAvoidance);
 
