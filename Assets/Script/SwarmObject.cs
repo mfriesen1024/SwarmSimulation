@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SwarmTesting
@@ -13,14 +14,17 @@ namespace SwarmTesting
 
         // This will be a trigger to determine if something is too close.
         SphereCollider sphereCollider;
+        Rigidbody rb;
 
-        List<GameObject> avoidanceList = new List<GameObject>();
+        [SerializeField]List<GameObject> avoidanceList = new List<GameObject>();
 
         public void Start()
         {
             sphereCollider = gameObject.AddComponent<SphereCollider>();
             sphereCollider.radius = swarmManager.AvoidanceDist / 2;
             sphereCollider.isTrigger = true;
+            rb = gameObject.AddComponent<Rigidbody>();
+            rb.isKinematic = true;
         }
 
         public void Update()
@@ -47,9 +51,9 @@ namespace SwarmTesting
             float x = Random.Range(-1, 1) * 180 * swarmManager.RandomFactor;
             float y = Random.Range(-1, 1) * 180 * swarmManager.RandomFactor;
             float z = Random.Range(-1, 1) * 180 * swarmManager.RandomFactor;
-            //targetRot += new Vector3(x, y, z);
+            targetRot += new Vector3(x, y, z);
 
-            // Rangecheck rotation, then apply it.
+            // Ensure rotation isn't rotating too fast, then apply it.
             Quaternion newRot = new(); newRot.eulerAngles = targetRot;
             float cAngle = Quaternion.Angle(transform.rotation, newRot);
             float maxAngleThisFrame = SwarmManager.Instance.RotationSpeed * delta;
@@ -136,19 +140,21 @@ namespace SwarmTesting
 
         void RemoveOldAvoidances()
         {
-            bool recurse = false;
+            bool recurse;
+            int count = 0;
             do
             {
+                recurse = false;
                 foreach (GameObject obj in avoidanceList)
                 {
                     if (Vector3.Distance(transform.position, obj.transform.position) > swarmManager.AvoidanceDist)
                     {
                         avoidanceList.Remove(obj);
                         // Because c# can't continue iteration after modification, set the recurse flag so we can restart the loop.
-                        recurse = true; break;
+                        recurse = true; count++; break;
                     }
                 }
-            } while (recurse);
+            } while (recurse && count < avoidanceList.Count);
         }
 
         private void OnTriggerEnter(Collider other)
