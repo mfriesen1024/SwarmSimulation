@@ -153,16 +153,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 8328492604776822627, guid: a2acbf044561c484f850dcb7ce031090, type: 3}
-  spawnCount: 50
-  AvoidanceDist: 5
+  spawnCount: 150
+  AvoidanceDist: 10
   WeightFactor: 2
-  MinRecallDistance: 15
-  MaxRecallDistance: 25
-  TargetSpeed: 3
-  RotationSpeed: 30
+  MinRecallDistance: 10
+  MaxRecallDistance: 20
+  TargetSpeed: 5
+  RotationSpeed: 45
   RandomFactor: 0.05
-  spawnBounds: 5
-  simBounds: 25
+  spawnBounds: 15
+  simBounds: 40
   Swarm: []
 --- !u!4 &85854004
 Transform:
