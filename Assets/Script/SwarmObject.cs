@@ -20,11 +20,12 @@ namespace SwarmTesting
 
         public void Start()
         {
-            sphereCollider = gameObject.AddComponent<SphereCollider>();
-            sphereCollider.radius = swarmManager.AvoidanceDist / 2;
-            sphereCollider.isTrigger = true;
+            //sphereCollider = gameObject.AddComponent<SphereCollider>();
+            //sphereCollider.radius = swarmManager.AvoidanceDist / 2;
+            //sphereCollider.isTrigger = true;
             rb = gameObject.AddComponent<Rigidbody>();
-            rb.isKinematic = true;
+            rb.useGravity = false;
+            //rb.isKinematic = true;
         }
 
         public void Update()
