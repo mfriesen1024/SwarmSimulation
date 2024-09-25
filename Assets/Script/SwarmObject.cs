@@ -16,7 +16,7 @@ namespace SwarmTesting
         SphereCollider sphereCollider;
         Rigidbody rb;
 
-        [SerializeField]List<GameObject> avoidanceList = new List<GameObject>();
+        [SerializeField] List<GameObject> avoidanceList = new List<GameObject>();
 
         public void Start()
         {
@@ -63,7 +63,7 @@ namespace SwarmTesting
             transform.rotation = Quaternion.Slerp(transform.rotation, newRot, slerpFactor);
 
             // Move the object in the given direction by target speed divided by delta.
-            float moveRandFactor = 1 + (Random.Range(-0.5f,0.5f) * swarmManager.RandomFactor);
+            float moveRandFactor = 1 + (Random.Range(-0.5f, 0.5f) * swarmManager.RandomFactor);
             float finalSpeed = swarmManager.TargetSpeed * delta * moveRandFactor;
             transform.position += transform.forward * finalSpeed;
         }
@@ -76,7 +76,7 @@ namespace SwarmTesting
             Quaternion rotToAvgPos = Quaternion.LookRotation(vectorToAvgPos.normalized);
 
             // Calculate distance crap.
-            float dist = Vector3.Distance(transform.position, avgPos);            
+            float dist = Vector3.Distance(transform.position, avgPos);
             float offset = swarmManager.MinRecallDistance;
             float max = swarmManager.MaxRecallDistance - offset;
             float recallLerpFactor = Mathf.Clamp01((dist - offset) / max);
@@ -91,16 +91,8 @@ namespace SwarmTesting
             Debug.DrawLine(transform.position, avgPos, Color.green);
             Debug.Log($"{name} TargetAvg: Target is {rotToAvgPos.eulerAngles}, lerped is {newRot.eulerAngles} with factor of {recallLerpFactor} " +
                 $"current rot is {currentRot.eulerAngles}");
-            
+
             return newRot.eulerAngles;
-            return Quaternion.Inverse(newRot).eulerAngles;
-
-            Vector3 recallTarget = Quaternion.FromToRotation(transform.position, avgPos).eulerAngles;
-            Debug.Log($"Recall target is {recallTarget}");
-
-            // Update target.
-            currentTarget = Vector3.Slerp(currentTarget, recallTarget, recallLerpFactor);
-            return currentTarget;
         }
 
         private Vector3 AvoidAvoidances(Vector3 currentTarget)
@@ -134,18 +126,6 @@ namespace SwarmTesting
             Debug.Log($"AvoidanceCheck: Current is {currentTarget}, target is {rotAvoidAvoidance.eulerAngles}," +
                 $"lerped is {newRot.eulerAngles}, factor was {avoidanceLerpFactor}");
             return newRot.eulerAngles;
-
-            // temp discard
-            // Get a target and log it, then update.
-            Vector3 avoidanceTarget = Quaternion.Inverse(
-                Quaternion.FromToRotation(
-                    transform.position, closestObj.transform.position)
-                ).eulerAngles;
-            Debug.Log($"Avoidance target is {avoidanceTarget}");
-
-            // Update target.
-            currentTarget = Vector3.Slerp(currentTarget, avoidanceTarget, avoidanceLerpFactor);
-            return currentTarget;
         }
 
         void RemoveOldAvoidances()

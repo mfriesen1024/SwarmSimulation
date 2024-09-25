@@ -6,7 +6,6 @@ namespace SwarmTesting
     /// <summary>
     /// Coordinates the behavior of the swarm.
     /// </summary>
-    //[CreateAssetMenu(fileName = "SwarmManager", menuName = "ScriptableObjects/SwarmManager", order = 1)]
     internal class SwarmManager : MonoBehaviour
     {
         [SerializeField] GameObject prefab;
@@ -80,7 +79,7 @@ namespace SwarmTesting
         private void Update()
         {
             avgPosition = GetAvgPosition();
-            avgRotation = GetAvgRotation();                        
+            avgRotation = GetAvgRotation();
         }
 
         private void FixedUpdate()
